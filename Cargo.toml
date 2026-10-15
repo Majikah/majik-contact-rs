@@ -1,0 +1,32 @@
+[package]
+name = "majik-contact"
+version = "0.2.0"
+edition = "2021"
+rust-version = "1.80"
+description = "A cryptographically secure contact and identity model for Majikah: public keys, post-quantum (ML-KEM, ML-DSA) key material, and privacy-preserving metadata."
+license = "Apache-2.0"
+authors = ["Zelijah"]
+repository = "https://github.com/Majikah/majik-contact"
+keywords = ["majikah", "contact", "post-quantum", "identity", "pqc"]
+
+[lib]
+name = "majik_contact"
+# index.ts -> mod.rs: the crate root deliberately lives in src/mod.rs
+path = "src/mod.rs"
+
+[features]
+default = ["fetch"]
+# Enables fetching group photos from http(s) URLs (mirrors the `fetch()` path in the TS utils).
+fetch = ["dep:reqwest"]
+
+[dependencies]
+base64 = "0.23.1"
+indexmap = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+time = { version = "0.3", default-features = false, features = ["std"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls"], optional = true }
+
+[dev-dependencies]
+base64 = "0.23.1"
